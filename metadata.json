@@ -1,0 +1,6 @@
+{
+  "name": "新参者 Immersive Reader",
+  "description": "An immersive interactive reader for Keigo Higashino's The Newcomer, rebuilt around Ningyocho chapters, clues, images, and sound.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Noto Serif SC", "Cormorant Garamond", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-ink: #f4efe6;
+  --color-ink-dim: #c6bdb0;
+  --color-ash: #8d8579;
+  --color-void: #070707;
+  --color-panel: #101113;
+  --color-panel-soft: #16181c;
+  --color-amber: #c89a57;
+  --color-frost: #7ea7b8;
+  --color-crimson: #a95a4a;
+}
+
+@layer base {
+  body {
+    @apply bg-void text-ink font-sans antialiased selection:bg-amber/20 selection:text-ink;
+    background:
+      linear-gradient(180deg, #080907 0%, #10120e 50%, #070807 100%);
+  }
+
+  * {
+    scrollbar-color: rgba(200, 154, 87, 0.35) rgba(255, 255, 255, 0.05);
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(200, 154, 87, 0.55), rgba(126, 167, 184, 0.35));
+    border-radius: 999px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+  }
+}
+
+@layer utilities {
+  .serif {
+    @apply font-serif;
+  }
+
+  .mono {
+    @apply font-mono;
+  }
+
+  .text-hero {
+    @apply text-[clamp(3.4rem,10vw,8.8rem)] leading-[0.88] tracking-[-0.07em];
+  }
+
+  .text-display {
+    @apply text-[clamp(2.2rem,5vw,4.6rem)] leading-[0.95] tracking-[-0.04em];
+  }
+
+  .text-kicker {
+    @apply text-[10px] uppercase tracking-[0.32em];
+  }
+
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    opacity: 0.06;
+  }
+
+  .film-glow {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 20px 60px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .glass {
+    @apply backdrop-blur-xl border border-white/6 bg-white/[0.03];
+  }
+
+  .panel {
+    @apply rounded-3xl border border-white/8 bg-panel/90 backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.35)];
+  }
+
+  .panel-soft {
+    @apply rounded-2xl border border-white/6 bg-panel-soft/85 backdrop-blur-xl;
+  }
+
+  .accent-line {
+    background: linear-gradient(90deg, rgba(200, 154, 87, 0), rgba(200, 154, 87, 0.9), rgba(126, 167, 184, 0.8), rgba(200, 154, 87, 0));
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1px rgba(244, 239, 230, 0.3);
+    color: transparent;
+  }
+
+  .shadow-ember {
+    box-shadow: 0 0 40px rgba(200, 154, 87, 0.12);
+  }
+
+  .shadow-frost {
+    box-shadow: 0 0 40px rgba(126, 167, 184, 0.12);
+  }
+
+  .mask-fade {
+    mask-image: linear-gradient(180deg, black 0%, black 80%, transparent 100%);
+  }
+
+  .noise-overlay {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 14px 14px;
+    opacity: 0.09;
+  }
+
+  .hover-lift {
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+  }
+
+  .soft-ring {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -8px, 0); }
+  }
+
+  @keyframes glow {
+    0%, 100% { opacity: 0.22; }
+    50% { opacity: 0.46; }
+  }
+
+  @keyframes rise {
+    from { transform: translateY(12px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .animate-drift {
+    animation: drift 9s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 4.5s ease-in-out infinite;
+  }
+
+  .animate-rise {
+    animation: rise 520ms ease both;
+  }
+}
+
