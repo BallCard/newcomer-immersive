@@ -1,13 +1,47 @@
-# 新参者 Immersive Reader
+# 新参者 · 沉浸式阅读器
 
-这是《新参者》的沉浸式互动网页版本。项目把原书压缩为一条可阅读、可复盘、可验证的人形町证据链：九章、十九张生成场景图、二十七条线索、环境音效、阅读进度和终章电影谢幕场景。
+基于东野圭吾《新参者》的沉浸式交互阅读体验，以段落推进、线索收集、案卷整理的方式重现人形町的侦探故事。
 
-## 在线体验
+## 预览
 
-- GitHub Pages: https://ballcard.github.io/newcomer-immersive/
-- 国内友好版: https://6ysfsmkh9d.coze.site
+<table>
+  <tr>
+    <td align="center"><b>首页</b></td>
+    <td align="center"><b>章节选择</b></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/01-home.png" width="600"/></td>
+    <td><img src="docs/screenshots/02-chapters.png" width="600"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>沉浸阅读</b></td>
+    <td align="center"><b>线索收集</b></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/03-reading.png" width="600"/></td>
+    <td><img src="docs/screenshots/04-reading-progress.png" width="600"/></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><b>案卷面板</b></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="docs/screenshots/05-ledger.png" width="600"/></td>
+  </tr>
+</table>
 
-> 如果在微信内置浏览器中加载较慢，建议复制链接到系统浏览器打开。
+## 功能
+
+- **段落推进式阅读** — 点击"继续推进"逐步展开故事，模拟翻页节奏
+- **线索自动收集** — 阅读过程中关键线索自动弹出并归档
+- **案卷面板（Ledger）** — 汇总已收集线索，追踪章节解锁进度
+- **9 章完整故事** — 从仙贝店到终章，完整还原人形町案件
+- **氛围视觉** — 暗色主题 + 场景配图，沉浸感拉满
+
+## 技术栈
+
+- React + TypeScript
+- Vite
+- Tailwind CSS
 
 ## 运行
 
@@ -16,22 +50,8 @@ npm install
 npm run dev
 ```
 
-默认地址：`http://localhost:3000`
-
-## 验证
+## 构建
 
 ```bash
-npm run lint
-npm run validate
 npm run build
 ```
-
-`validate` 会检查章节解锁链、线索触发、图片文件、章节图片覆盖和本地压缩故事文档。
-
-## 结构
-
-- `src/data/chapters.ts`：章节、正文段落、线索和解锁链
-- `src/data/images.ts`：段落到生成图片的映射
-- `public/images`：章节主图、细节镜头和谢幕图
-- `docs/story-skill.md`：短上下文故事 skill
-- `scripts/validate-story.cjs`：完整性校验
