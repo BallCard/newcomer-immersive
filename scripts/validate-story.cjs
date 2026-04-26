@@ -1,31 +1,53 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { chapters, clues } from '../src/data/chapters';
-import { paragraphImages } from '../src/data/images';
+const fs = require('node:fs');
+const path = require('node:path');
+const Module = require('node:module');
+const ts = require('typescript');
 
 const projectRoot = process.cwd();
-const errors: string[] = [];
-const warnings: string[] = [];
+const errors = [];
+const warnings = [];
 
-function assert(condition: unknown, message: string) {
+function assert(condition, message) {
   if (!condition) errors.push(message);
 }
 
-function resolveAsset(url: string) {
+function resolveAsset(url) {
   return path.join(projectRoot, 'public', url.replace(/^\//, ''));
 }
+
+function loadTsModule(relativePath) {
+  const absolutePath = path.join(projectRoot, relativePath);
+  const source = fs.readFileSync(absolutePath, 'utf8');
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2022,
+      esModuleInterop: true,
+    },
+    fileName: absolutePath,
+  }).outputText;
+
+  const mod = new Module(absolutePath, module);
+  mod.filename = absolutePath;
+  mod.paths = Module._nodeModulePaths(path.dirname(absolutePath));
+  mod._compile(compiled, absolutePath);
+  return mod.exports;
+}
+
+const { chapters, clues } = loadTsModule('src/data/chapters.ts');
+const { paragraphImages } = loadTsModule('src/data/images.ts');
 
 const chapterIds = new Set(chapters.map((chapter) => chapter.id));
 const clueIds = new Set(clues.map((clue) => clue.id));
 const paragraphIds = new Set(chapters.flatMap((chapter) => chapter.paragraphs.map((paragraph) => paragraph.id)));
-const imageUrls = new Set<string>();
+const imageUrls = new Set();
 
 assert(chapters.length === 9, `Expected 9 chapters, got ${chapters.length}.`);
 assert(chapters[0]?.id === 'senbei-girl', 'First chapter should be 仙贝店的女孩.');
 assert(chapters.at(-1)?.id === 'nihonbashi-detective', 'Last chapter should be 日本桥的刑警.');
 
 for (const chapter of chapters) {
-  assert(chapter.paragraphs.length >= 5, `Chapter ${chapter.id} is too thin.`);
+  assert(chapter.paragraphs.length >= 8, `Chapter ${chapter.id} is too thin.`);
 
   if (chapter.unlocksChapter) {
     assert(chapterIds.has(chapter.unlocksChapter), `Chapter ${chapter.id} unlocks missing chapter ${chapter.unlocksChapter}.`);
@@ -64,10 +86,18 @@ for (let index = 1; index <= 9; index += 1) {
   assert([...imageUrls].some((url) => url.startsWith(prefix)), `Missing generated image for chapter ${index}.`);
 }
 
+for (let index = 10; index <= 19; index += 1) {
+  const prefix = `/images/${index}_`;
+  const exists = fs.readdirSync(path.join(projectRoot, 'public', 'images')).some((name) => name.startsWith(`${index}_`));
+  assert(exists, `Missing generated detail image with prefix ${prefix}.`);
+}
+
+assert(fs.existsSync(resolveAsset('/images/18_nihonbashi_credits.png')), 'Missing end credits image.');
+
 const startChapter = chapters[0];
 if (startChapter) {
-  const visited = new Set<string>();
-  let cursor: string | undefined = startChapter.id;
+  const visited = new Set();
+  let cursor = startChapter.id;
   while (cursor && !visited.has(cursor)) {
     visited.add(cursor);
     cursor = chapters.find((chapter) => chapter.id === cursor)?.unlocksChapter;
@@ -102,7 +132,7 @@ console.log(`- chapters: ${chapters.length}`);
 console.log(`- paragraphs: ${totalParagraphs}`);
 console.log(`- clues: ${clues.length}`);
 console.log(`- image mappings: ${imageCoverage}`);
-console.log(`- generated image files: ${imageUrls.size}`);
+console.log(`- generated image files: ${imageUrls.size + 1}`);
 
 if (warnings.length > 0) {
   console.log('\nWarnings:');

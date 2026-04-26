@@ -95,4 +95,49 @@ export const paragraphImages: Record<string, StoryImage> = {
     alt: '加贺恭一郎走过日本桥',
     caption: '真相不是炫技的反转，而是所有人都必须面对的关系账。',
   },
+  'p1-8': {
+    url: '/images/10_senbei_documents.png',
+    alt: '仙贝店柜台上的保险文件',
+    caption: '诊断证明、茶杯和仙贝袋，把命案第一次压进普通家庭的桌面。',
+  },
+  'p2-8': {
+    url: '/images/11_ryotei_delivery_note.png',
+    alt: '料亭后厨的外送单',
+    caption: '一张外送单让加贺重新计算后门、街口和证词之间的距离。',
+  },
+  'p3-8': {
+    url: '/images/12_ceramics_towel.png',
+    alt: '陶瓷器店柜台上的手巾',
+    caption: '手巾被解释得越轻，背后的家庭压力就越重。',
+  },
+  'p4-8': {
+    url: '/images/13_clock_repair_ticket.png',
+    alt: '钟表店的修理单',
+    caption: '时间不是被钟表记录下来，而是被人有意整理过。',
+  },
+  'p5-8': {
+    url: '/images/14_pastry_receipt.png',
+    alt: '西饼店的蛋糕收据',
+    caption: '收据像一帧定格，把最后几小时缩成可追问的窗口。',
+  },
+  'p6-8': {
+    url: '/images/15_translator_phone.png',
+    alt: '翻译家桌上的电话',
+    caption: '没有说完的电话，让沉默也变成了证词。',
+  },
+  'p7-8': {
+    url: '/images/16_cleaning_keys.png',
+    alt: '保洁公司的备用钥匙墙',
+    caption: '钥匙、排班和责任边界，是最现实的进入方式。',
+  },
+  'p8-8': {
+    url: '/images/17_folk_art_gift.png',
+    alt: '民艺店包装好的礼物',
+    caption: '礼物不是装饰，它是受害者最后仍想维系的关系。',
+  },
+  'p9-8': {
+    url: '/images/19_kaga_route_notebook.png',
+    alt: '加贺的人形町路线笔记',
+    caption: '九家店被画成一条路线，日常终于成为完整证词。',
+  },
 };

@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
-    "validate": "tsx scripts/validate-story.ts"
+    "validate": "node scripts/validate-story.cjs"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",

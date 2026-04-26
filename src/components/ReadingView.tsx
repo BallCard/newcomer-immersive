@@ -110,6 +110,7 @@ export function ReadingView({
 
   const visibleParagraphs = chapter.paragraphs.slice(0, visibleCount);
   const chapterImage = getParagraphImage(chapter.paragraphs.find((p) => paragraphImages[p.id]) ?? chapter.paragraphs[0]);
+  const showEndCredits = chapter.chapterNumber === 9 && visibleCount >= chapter.paragraphs.length;
 
   return (
     <div className="px-4 py-8 md:px-8">
@@ -225,6 +226,40 @@ export function ReadingView({
               案卷
             </button>
           </div>
+
+          <AnimatePresence>
+            {showEndCredits && (
+              <motion.section
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="relative mt-8 min-h-[520px] overflow-hidden rounded-lg border border-white/12"
+              >
+                <img
+                  src="/images/18_nihonbashi_credits.png"
+                  alt="雨后的日本桥谢幕场景"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,6,6,0.18),rgba(5,6,6,0.92)),linear-gradient(90deg,rgba(5,6,6,0.88),rgba(5,6,6,0.28))]" />
+                <div className="relative z-10 flex min-h-[520px] flex-col justify-end p-6 md:p-8">
+                  <div className="mono text-[10px] uppercase tracking-[0.34em] text-amber/75">End credits</div>
+                  <h2 className="serif mt-4 max-w-4xl text-[clamp(2.8rem,7vw,6rem)] font-semibold leading-none tracking-normal">
+                    人形町的灯，一家一家暗下去。
+                  </h2>
+                  <p className="mt-5 max-w-2xl text-base leading-8 text-white/70">
+                    真相被说出口后，街道没有变成舞台。仙贝店继续开门，料亭继续备菜，钟表继续走。加贺穿过日本桥，像电影谢幕后的最后一个背影，把案子交还给活着的人。
+                  </p>
+                  <div className="mt-8 grid gap-3 md:grid-cols-3">
+                    {['九家店', '二十七条线索', '一个新参者'].map((item) => (
+                      <div key={item} className="rounded-lg border border-white/12 bg-black/28 px-4 py-3 backdrop-blur-md">
+                        <div className="serif text-2xl font-semibold">{item}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.section>
+            )}
+          </AnimatePresence>
         </main>
 
         <aside className="h-fit rounded-lg border border-white/10 bg-white/[0.04] p-5 xl:sticky xl:top-24">

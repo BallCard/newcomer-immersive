@@ -1,6 +1,6 @@
 # 新参者 Immersive Reader
 
-这是《新参者》的沉浸式互动网页版本。项目把原书压缩为一条可阅读、可复盘、可验证的人形町证据链：九章、九张生成场景图、二十七条线索、环境音效和阅读进度。
+这是《新参者》的沉浸式互动网页版本。项目把原书压缩为一条可阅读、可复盘、可验证的人形町证据链：九章、十九张生成场景图、二十七条线索、环境音效、阅读进度和终章电影谢幕场景。
 
 ## 运行
 
@@ -25,6 +25,6 @@ npm run build
 
 - `src/data/chapters.ts`：章节、正文段落、线索和解锁链
 - `src/data/images.ts`：段落到生成图片的映射
-- `public/images`：九张《新参者》章节图
+- `public/images`：章节主图、细节镜头和谢幕图
 - `docs/story-skill.md`：短上下文故事 skill
-- `scripts/validate-story.ts`：完整性校验
+- `scripts/validate-story.cjs`：完整性校验
